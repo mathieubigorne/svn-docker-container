@@ -22,13 +22,7 @@ RUN chmod -R g+rws /home/svn
 # Configure Apache to serve up Subversion
 RUN /usr/sbin/a2enmod auth_digest
 RUN rm /etc/apache2/mods-available/dav_svn.conf
-ADD testrepo-conf/dav_svn.conf /etc/apache2/mods-available/dav_svn.conf
-
-# Create password files. Pre-created with "user"/"pass" username and password.
-RUN mkdir -p /etc/subversion
-ADD testrepo-conf/passwd.htpasswd /etc/subversion/passwd.htpasswd
-ADD testrepo-conf/passwd.htdigest /etc/subversion/passwd.htdigest
-ADD testrepo-conf/authz.conf /etc/subversion/authz.conf
+ADD dav_svn.conf /etc/apache2/mods-available/dav_svn.conf
 
 ENV APACHE_RUN_USER    www-data
 ENV APACHE_RUN_GROUP   www-data
